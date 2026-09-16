@@ -1,16 +1,62 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import tkinter as tk
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+# Parent Class
+class Notification:
+    def __init__(self, recipient):
+        self.recipient = recipient
+
+    def send(self):
+        return "Sending notification..."
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Child Class 1
+class EmailNotification(Notification):
+    def send(self):
+        return f"Sending Email to {self.recipient}"
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+# Child Class 2
+class SMSNotification(Notification):
+    def send(self):
+        return f"Sending SMS to {self.recipient}"
+
+
+# GUI Function
+def send_notification():
+    recipient = entry.get()
+
+    email = EmailNotification(recipient)
+    result_label.config(text=email.send())
+
+
+# Main Window
+root = tk.Tk()
+root.title("Notification System")
+root.geometry("400x250")
+
+title = tk.Label(
+    root,
+    text="Notification System",
+    font=("Arial", 18, "bold")
+)
+title.pack(pady=20)
+
+entry = tk.Entry(root, width=30)
+entry.pack(pady=10)
+
+send_button = tk.Button(
+    root,
+    text="Send Email",
+    command=send_notification
+)
+send_button.pack(pady=10)
+
+result_label = tk.Label(
+    root,
+    text="",
+    font=("Arial", 12)
+)
+result_label.pack(pady=20)
+
+root.mainloop()
